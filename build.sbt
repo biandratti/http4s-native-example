@@ -29,7 +29,6 @@ lazy val root = (project in file("."))
   )
 
 addCommandAlias("checkFormat", ";scalafmtSbtCheck ;scalafmtCheckAll")
-addCommandAlias("scapegoatLint", ";compile ;scapegoat")
 addCommandAlias("scalafixLint", ";compile ;scalafix")
 addCommandAlias(
   "testCoverage",
@@ -37,5 +36,5 @@ addCommandAlias(
 )
 addCommandAlias(
   "verify",
-  ";checkFormat ;scapegoatLint ;scalafixLint ;testCoverage; dependencyCheck"
+  ";checkFormat ;scalafixLint ;testCoverage; dependencyCheck"
 )
