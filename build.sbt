@@ -9,14 +9,33 @@ lazy val root = (project in file("."))
     name := "http4s-example",
     version := "0.0.1-SNAPSHOT",
     scalaVersion := "3.1.0",
+    inThisBuild(
+      List(
+        scalaVersion := "3.1.0",
+        semanticdbEnabled := true,
+        semanticdbVersion := scalafixSemanticdb.revision
+      )
+    ),
     libraryDependencies ++= Seq(
-      "org.http4s"      %% "http4s-ember-server" % Http4sVersion,
-      "org.http4s"      %% "http4s-ember-client" % Http4sVersion,
-      "org.http4s"      %% "http4s-circe"        % Http4sVersion,
-      "org.http4s"      %% "http4s-dsl"          % Http4sVersion,
-      "org.scalameta"   %% "munit"               % MunitVersion           % Test,
-      "org.typelevel"   %% "munit-cats-effect-3" % MunitCatsEffectVersion % Test,
-      "ch.qos.logback"  %  "logback-classic"     % LogbackVersion,
+      "org.http4s" %% "http4s-ember-server" % Http4sVersion,
+      "org.http4s" %% "http4s-ember-client" % Http4sVersion,
+      "org.http4s" %% "http4s-circe" % Http4sVersion,
+      "org.http4s" %% "http4s-dsl" % Http4sVersion,
+      "org.scalameta" %% "munit" % MunitVersion % Test,
+      "org.typelevel" %% "munit-cats-effect-3" % MunitCatsEffectVersion % Test,
+      "ch.qos.logback" % "logback-classic" % LogbackVersion
     ),
     testFrameworks += new TestFramework("munit.Framework")
   )
+
+addCommandAlias("checkFormat", ";scalafmtSbtCheck ;scalafmtCheckAll")
+addCommandAlias("scapegoatLint", ";compile ;scapegoat")
+addCommandAlias("scalafixLint", ";compile ;scalafix")
+addCommandAlias(
+  "testCoverage",
+  ";coverage ;test ;coverageAggregate; coverageReport"
+)
+addCommandAlias(
+  "verify",
+  ";checkFormat ;scapegoatLint ;scalafixLint ;testCoverage; dependencyCheck"
+)
