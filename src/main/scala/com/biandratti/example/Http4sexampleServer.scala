@@ -22,14 +22,15 @@ object Http4sexampleServer:
       // in the underlying routes.
       httpApp = (
         Http4sexampleRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
-        Http4sexampleRoutes.jokeRoutes[F](jokeAlg)
+          Http4sexampleRoutes.jokeRoutes[F](jokeAlg)
       ).orNotFound
 
       // With Middlewares in place
       finalHttpApp = Logger.httpApp(true, true)(httpApp)
 
-      _ <- 
-        EmberServerBuilder.default[F]
+      _ <-
+        EmberServerBuilder
+          .default[F]
           .withHost(ipv4"0.0.0.0")
           .withPort(port"8080")
           .withHttpApp(finalHttpApp)
