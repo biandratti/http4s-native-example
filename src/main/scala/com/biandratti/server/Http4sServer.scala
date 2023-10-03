@@ -1,14 +1,15 @@
-package com.biandratti.example
+package com.biandratti.server
 
 import cats.effect.Async
-import cats.syntax.all._
-import com.comcast.ip4s._
+import cats.syntax.all.*
+import com.biandratti.service.{HelloWorld, Jokes}
+import com.comcast.ip4s.*
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.ember.server.EmberServerBuilder
-import org.http4s.implicits._
+import org.http4s.implicits.*
 import org.http4s.server.middleware.Logger
 
-object Http4sexampleServer:
+object Http4sServer:
 
   def run[F[_]: Async]: F[Nothing] = {
     for {
@@ -21,8 +22,8 @@ object Http4sexampleServer:
       // want to extract a segments not checked
       // in the underlying routes.
       httpApp = (
-        Http4sexampleRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
-          Http4sexampleRoutes.jokeRoutes[F](jokeAlg)
+        Http4sRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
+          Http4sRoutes.jokeRoutes[F](jokeAlg)
       ).orNotFound
 
       // With Middlewares in place
