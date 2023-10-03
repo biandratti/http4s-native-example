@@ -1,8 +1,10 @@
-package com.biandratti.example
+package com.biandratti.service
 
 import cats.effect.IO
-import org.http4s._
-import org.http4s.implicits._
+import com.biandratti.server.Http4sRoutes
+import com.biandratti.service.HelloWorld
+import org.http4s.*
+import org.http4s.implicits.*
 import munit.CatsEffectSuite
 
 class HelloWorldSpec extends CatsEffectSuite:
@@ -21,4 +23,4 @@ class HelloWorldSpec extends CatsEffectSuite:
   private[this] val retHelloWorld: IO[Response[IO]] =
     val getHW = Request[IO](Method.GET, uri"/hello/world")
     val helloWorld = HelloWorld.impl[IO]
-    Http4sexampleRoutes.helloWorldRoutes(helloWorld).orNotFound(getHW)
+    Http4sRoutes.helloWorldRoutes(helloWorld).orNotFound(getHW)

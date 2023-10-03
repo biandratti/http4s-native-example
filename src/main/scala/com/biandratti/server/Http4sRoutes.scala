@@ -1,15 +1,16 @@
-package com.biandratti.example
+package com.biandratti.server
 
 import cats.effect.Sync
-import cats.implicits._
+import cats.implicits.*
+import com.biandratti.service.{HelloWorld, Jokes}
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 
-object Http4sexampleRoutes:
+object Http4sRoutes:
 
   def jokeRoutes[F[_]: Sync](J: Jokes[F]): HttpRoutes[F] =
     val dsl = new Http4sDsl[F] {}
-    import dsl._
+    import dsl.*
     HttpRoutes.of[F] { case GET -> Root / "joke" =>
       for {
         joke <- J.get
@@ -19,7 +20,7 @@ object Http4sexampleRoutes:
 
   def helloWorldRoutes[F[_]: Sync](H: HelloWorld[F]): HttpRoutes[F] =
     val dsl = new Http4sDsl[F] {}
-    import dsl._
+    import dsl.*
     HttpRoutes.of[F] { case GET -> Root / "hello" / name =>
       for {
         greeting <- H.hello(HelloWorld.Name(name))
