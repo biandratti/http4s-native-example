@@ -1,17 +1,17 @@
 val Http4sVersion = "1.0.0-M29"
 val MunitVersion = "0.7.29"
 val LogbackVersion = "1.2.12"
-val MunitCatsEffectVersion = "1.0.6"
+val MunitCatsEffectVersion = "1.0.7"
 
 lazy val root = (project in file("."))
   .settings(
     organization := "com.biandratti",
     name := "http4s-example",
     version := "0.0.1-SNAPSHOT",
-    scalaVersion := "3.1.0",
+    scalaVersion := "3.1.3",
     inThisBuild(
       List(
-        scalaVersion := "3.1.0",
+        scalaVersion := "3.1.3",
         semanticdbEnabled := true,
         semanticdbVersion := scalafixSemanticdb.revision
       )
