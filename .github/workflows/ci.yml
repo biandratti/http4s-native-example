@@ -27,6 +27,16 @@ jobs:
           apps: sbt
       - name: Compile
         run: sbt compile
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Build native binary
+        run: sbt nativeLink
   format:
     runs-on: ubuntu-latest
     steps:
