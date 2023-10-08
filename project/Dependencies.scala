@@ -4,7 +4,7 @@ object Dependencies {
 
   lazy val logbackDependencies: Seq[ModuleID] = {
     Seq(
-      "ch.qos.logback" % "logback-classic" % "1.2.12"
+      "ch.qos.logback" % "logback-classic" % "1.4.11"
     )
   }
 
