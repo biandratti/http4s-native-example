@@ -15,6 +15,10 @@ libraryDependencies ++= Seq(
   "org.http4s" %%% "http4s-dsl" % "0.23.16",
   "org.http4s" %%% "http4s-circe" % "0.23.16"
 )
+/*libraryDependencies ++= Dependencies.epollcatDependencies
+  ++ Dependencies.http4sDependencies
+  ++ Dependencies.logbackDependencies
+  ++ Dependencies.munitDependencies*/
 
 val isLinux = Option(System.getProperty("os.name"))
   .exists(_.toLowerCase().contains("linux"))
