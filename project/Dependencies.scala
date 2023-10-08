@@ -8,6 +8,10 @@ object Dependencies {
     )
   }
 
+  lazy val epollcatDependencies: Seq[ModuleID] = {
+    Seq("com.armanbilge" %% "epollcat" % "0.1.1") // Runtime
+  }
+
   lazy val http4sDependencies: Seq[ModuleID] = {
     val Http4sVersion = "1.0.0-M29"
     Seq(
