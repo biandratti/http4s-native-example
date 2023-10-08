@@ -5,10 +5,10 @@ lazy val root = (project in file("."))
     organization := "com.biandratti",
     name := "http4s-example",
     version := "0.0.1-SNAPSHOT",
-    scalaVersion := "3.1.3",
+    scalaVersion := "3.3.1",
     inThisBuild(
       List(
-        scalaVersion := "3.1.3",
+        scalaVersion := "3.3.1",
         semanticdbEnabled := true,
         semanticdbVersion := scalafixSemanticdb.revision
       )
