@@ -1,3 +1,5 @@
+import scala.collection.mutable.ListBuffer
+
 Global / dependencyCheckFormats := Seq("HTML", "JSON")
 
 ThisBuild / scalaVersion := "3.2.0"
@@ -10,6 +12,7 @@ name := "Scala Native Ember Example"
 
 val http4sVersion = "0.23.16"
 
+//TODO: setup setting
 libraryDependencies ++= Seq(
   "com.armanbilge" %%% "epollcat" % "0.1.1", // Runtime
   "org.http4s" %%% "http4s-ember-client" % http4sVersion,
@@ -27,19 +30,22 @@ val isMacOs =
   Option(System.getProperty("os.name")).exists(_.toLowerCase().contains("mac"))
 val isArm = Option(System.getProperty("os.arch"))
   .exists(_.toLowerCase().contains("aarch64"))
+val s2nLibPath = sys.env.get("S2N_LIBRARY_PATH")
 
 nativeConfig ~= { c =>
-  if (isLinux) { // brew-installed s2n
-    c.withLinkingOptions(c.linkingOptions :+ "-L/home/linuxbrew/.linuxbrew/lib")
-  } else if (isMacOs) // brew-installed OpenSSL
-    if (isArm)
-      c.withLinkingOptions(
-        c.linkingOptions :+ "-L/opt/homebrew/opt/openssl@3/lib"
-      )
-    else
-      c.withLinkingOptions(c.linkingOptions :+ "-L/usr/local/opt/openssl@3/lib")
-  else c
+  val linkOpts = ListBuffer.empty[String]
+  if (isLinux) // brew-installed s2n
+    linkOpts.append("-L/home/linuxbrew/.linuxbrew/lib")
+  else if (isMacOs) // brew-installed OpenSSL
+    if(isArm) linkOpts.append("-L/opt/homebrew/opt/openssl@3/lib")
+    else linkOpts.append("-L/usr/local/opt/openssl@3/lib")
+  s2nLibPath match {
+    case None =>
+    case Some(path) => linkOpts.append(s"-L$path")
+  }
+  c.withLinkingOptions(c.linkingOptions ++ linkOpts.toSeq)
 }
+
 envVars ++= {
   val ldLibPath =
     if (isLinux)
