@@ -13,7 +13,7 @@ object Dependencies {
   }
 
   lazy val http4sDependencies: Seq[ModuleID] = {
-    val Http4sVersion = "1.0.0-M29"
+    val Http4sVersion = "0.23.16"
     Seq(
       "org.http4s" %% "http4s-ember-server" % Http4sVersion,
       "org.http4s" %% "http4s-ember-client" % Http4sVersion,
@@ -29,10 +29,10 @@ object Dependencies {
     )
   }
 
-  lazy val kafkaDependencies: Seq[ModuleID] = {
+  /*lazy val kafkaDependencies: Seq[ModuleID] = {
     Seq(
       "com.github.fd4s" %% "fs2-kafka" % "3.1.0"
     )
-  }
+  }*/
 
 }
