@@ -68,15 +68,16 @@ jobs:
           apps: sbt
       - name: Scalafix Lint
         run: sbt scalafixLint
-#  unit_test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: coursier/setup-action@v1
-#        with:
-#          jvm: temurin:${{env.JAVA_VERSION}}
-#          apps: sbt
-#      - name: Run tests with coverage Report
+  unit_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Run tests with coverage Report
+        run: sbt test
 #        run: sbt testCoverage
 #      - uses: codecov/codecov-action@v3
 #        with:

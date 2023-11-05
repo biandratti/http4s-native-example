@@ -8,17 +8,18 @@ enablePlugins(ScalaNativePlugin)
 
 name := "Scala Native Ember Example"
 
+val http4sVersion = "0.23.16"
+
 libraryDependencies ++= Seq(
   "com.armanbilge" %%% "epollcat" % "0.1.1", // Runtime
-  "org.http4s" %%% "http4s-ember-client" % "0.23.16",
-  "org.http4s" %%% "http4s-ember-server" % "0.23.16",
-  "org.http4s" %%% "http4s-dsl" % "0.23.16",
-  "org.http4s" %%% "http4s-circe" % "0.23.16"
+  "org.http4s" %%% "http4s-ember-client" % http4sVersion,
+  "org.http4s" %%% "http4s-ember-server" % http4sVersion,
+  "org.http4s" %%% "http4s-dsl" % http4sVersion,
+  "org.http4s" %%% "http4s-circe" % http4sVersion,
+  "ch.qos.logback" % "logback-classic" % "1.4.7",
+  "org.scalameta" %% "munit" % "0.7.29" % Test,
+  "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test
 )
-/*libraryDependencies ++= Dependencies.epollcatDependencies
-  ++ Dependencies.http4sDependencies
-  ++ Dependencies.logbackDependencies
-  ++ Dependencies.munitDependencies*/
 
 val isLinux = Option(System.getProperty("os.name"))
   .exists(_.toLowerCase().contains("linux"))
