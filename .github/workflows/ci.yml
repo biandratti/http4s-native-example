@@ -27,6 +27,27 @@ jobs:
           apps: sbt
       - name: Compile
         run: sbt compile
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: coursier/setup-action@v1
+        with:
+          jvm: temurin:${{env.JAVA_VERSION}}
+          apps: sbt
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc make cmake
+      - name: Build and Install s2n-tls
+        run: |
+          git clone https://github.com/awslabs/s2n.git
+          cd s2n
+          cmake .
+          make
+          sudo make install
+      - name: Build native binary
+        run: sbt nativeLink
   format:
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +77,8 @@ jobs:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
       - name: Run tests with coverage Report
-        run: sbt testCoverage
+        run: sbt test
+#        run: sbt testCoverage
 #      - uses: codecov/codecov-action@v3
 #        with:
 #          token: ${{ secrets.CODECOV_TOKEN }}
