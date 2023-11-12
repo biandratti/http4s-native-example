@@ -2,7 +2,7 @@ import scala.collection.mutable.ListBuffer
 
 Global / dependencyCheckFormats := Seq("HTML", "JSON")
 
-ThisBuild / scalaVersion := "3.2.0"
+ThisBuild / scalaVersion := "3.2.2"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "com.biandratti"
 
@@ -37,10 +37,10 @@ nativeConfig ~= { c =>
   if (isLinux) // brew-installed s2n
     linkOpts.append("-L/home/linuxbrew/.linuxbrew/lib")
   else if (isMacOs) // brew-installed OpenSSL
-    if(isArm) linkOpts.append("-L/opt/homebrew/opt/openssl@3/lib")
+    if (isArm) linkOpts.append("-L/opt/homebrew/opt/openssl@3/lib")
     else linkOpts.append("-L/usr/local/opt/openssl@3/lib")
   s2nLibPath match {
-    case None =>
+    case None       =>
     case Some(path) => linkOpts.append(s"-L$path")
   }
   c.withLinkingOptions(c.linkingOptions ++ linkOpts.toSeq)
