@@ -14,7 +14,7 @@ val http4sVersion = "0.23.16"
 
 //TODO: setup setting
 libraryDependencies ++= Seq(
-  "com.armanbilge" %%% "epollcat" % "0.1.1", // Runtime
+  "com.armanbilge" %%% "epollcat" % "0.1.6", // Runtime
   "org.http4s" %%% "http4s-ember-client" % http4sVersion,
   "org.http4s" %%% "http4s-ember-server" % http4sVersion,
   "org.http4s" %%% "http4s-dsl" % http4sVersion,
@@ -37,10 +37,10 @@ nativeConfig ~= { c =>
   if (isLinux) // brew-installed s2n
     linkOpts.append("-L/home/linuxbrew/.linuxbrew/lib")
   else if (isMacOs) // brew-installed OpenSSL
-    if(isArm) linkOpts.append("-L/opt/homebrew/opt/openssl@3/lib")
+    if (isArm) linkOpts.append("-L/opt/homebrew/opt/openssl@3/lib")
     else linkOpts.append("-L/usr/local/opt/openssl@3/lib")
   s2nLibPath match {
-    case None =>
+    case None       =>
     case Some(path) => linkOpts.append(s"-L$path")
   }
   c.withLinkingOptions(c.linkingOptions ++ linkOpts.toSeq)
