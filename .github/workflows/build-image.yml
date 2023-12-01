@@ -2,16 +2,11 @@ name: Build and publish
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [ "master" ]
     tags:
       - 'v*'
   pull_request:
-<<<<<<< Updated upstream
-=======
-#    branches:
-#      - 'master'
->>>>>>> Stashed changes
+    branches: [ "master" ]
   workflow_dispatch:
 
 env:
