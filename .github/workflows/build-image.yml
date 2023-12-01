@@ -7,6 +7,11 @@ on:
     tags:
       - 'v*'
   pull_request:
+<<<<<<< Updated upstream
+=======
+#    branches:
+#      - 'master'
+>>>>>>> Stashed changes
   workflow_dispatch:
 
 env:
@@ -42,7 +47,7 @@ jobs:
 
       - name: Build & Push Docker Image
         uses: docker/build-push-action@v3
-        if: github.event_name != 'pull_request'
+#        if: github.event_name != 'pull_request'
         with:
           context: .
           platforms: linux/amd64,linux/arm64
