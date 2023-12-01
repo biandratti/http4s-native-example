@@ -45,7 +45,7 @@ RUN S2N_LIBRARY_PATH=/build/s2n-tls/s2n-tls-install/lib sbt nativeLink
 
 FROM gcr.io/distroless/cc
 WORKDIR /app
-COPY --from=build-env /build/target/scala-3.3.1/scala-native-ember-example-out ./app
+COPY --from=build-env /build/target/scala-3.2.2/scala-native-ember-example-out ./app
 EXPOSE 8080
 ENV S2N_DONT_MLOCK=1
 ENTRYPOINT ["./app"]
