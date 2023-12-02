@@ -9,10 +9,6 @@ on:
     branches: [ "master" ]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  packages: write
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: http4s-example
