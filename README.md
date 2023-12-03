@@ -1,3 +1,6 @@
+# Building a scala native image using http4s.
+## Project based on example: https://github.com/ChristopherDavenport/scala-native-ember-example
+
 ### Pull & Run docker image
 
 ```
