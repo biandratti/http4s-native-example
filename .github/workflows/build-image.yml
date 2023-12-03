@@ -49,7 +49,7 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}:latest
   vulnerability-scanner:
     runs-on: ubuntu-latest
-    if: success()
+    needs: [ build-image ]
     steps:
       - name: Log in to the Container registry
         uses: docker/login-action@v2
