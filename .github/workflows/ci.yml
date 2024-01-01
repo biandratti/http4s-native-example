@@ -35,17 +35,8 @@ jobs:
         with:
           jvm: temurin:${{env.JAVA_VERSION}}
           apps: sbt
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc make cmake
-      - name: Build and Install s2n-tls
-        run: |
-          git clone https://github.com/awslabs/s2n.git
-          cd s2n
-          cmake .
-          make
-          sudo make install
+      - name: Setup llvm
+        uses: ./.github/actions/linux-setup-env
       - name: Build native binary
         run: sbt nativeLink
   format:
