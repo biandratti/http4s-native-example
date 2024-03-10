@@ -10,7 +10,7 @@ enablePlugins(ScalaNativePlugin)
 
 name := "Scala Native Ember Example"
 
-val http4sVersion = "0.23.16"
+val http4sVersion = "0.23.26"
 
 //TODO: setup setting
 libraryDependencies ++= Seq(
