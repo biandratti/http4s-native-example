@@ -1,7 +1,5 @@
 package com.native
 
-package com.example.quickstartscala3
-
 import cats.effect.IO
 import munit.CatsEffectSuite
 import org.http4s.*

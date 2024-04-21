@@ -3,14 +3,18 @@ package com.native
 import cats.effect.Async
 import cats.syntax.all.*
 import com.comcast.ip4s.*
+import fs2.io.net.Network
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.implicits.*
 import org.http4s.server.middleware.Logger
+import org.typelevel.log4cats.LoggerFactory
+import org.typelevel.log4cats.slf4j.Slf4jFactory
 
 object MyServer:
 
-  def run[F[_]: Async]: F[Nothing] = {
+  given loggerFactory[F[_]: Async]: LoggerFactory[F] = Slf4jFactory.create[F]
+  def run[F[_]: Async: Network]: F[Nothing] = {
     for {
       client <- EmberClientBuilder.default[F].build
       helloWorldAlg = HelloWorld.impl[F]
