@@ -3,9 +3,9 @@ package com.native
 package com.example.quickstartscala3
 
 import cats.effect.IO
-import org.http4s._
-import org.http4s.implicits._
 import munit.CatsEffectSuite
+import org.http4s.*
+import org.http4s.implicits.*
 
 class HelloWorldSpec extends CatsEffectSuite:
 
@@ -17,7 +17,7 @@ class HelloWorldSpec extends CatsEffectSuite:
     assertIO(retHelloWorld.flatMap(_.as[String]), "{\"message\":\"Hello, world\"}")
   }
 
-  private[this] val retHelloWorld: IO[Response[IO]] =
+  private val retHelloWorld: IO[Response[IO]] =
     val getHW = Request[IO](Method.GET, uri"/hello/world")
     val helloWorld = HelloWorld.impl[IO]
     MyRoutes.helloWorldRoutes(helloWorld).orNotFound(getHW)

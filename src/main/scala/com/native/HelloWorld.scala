@@ -1,10 +1,10 @@
 package com.native
 
 import cats.Applicative
-import cats.implicits._
+import cats.implicits.*
 import io.circe.{Encoder, Json}
 import org.http4s.EntityEncoder
-import org.http4s.circe._
+import org.http4s.circe.*
 
 trait HelloWorld[F[_]]:
   def hello(n: HelloWorld.Name): F[HelloWorld.Greeting]
