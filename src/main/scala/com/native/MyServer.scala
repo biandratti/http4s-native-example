@@ -1,11 +1,13 @@
 package com.native
 
+import cats.data.Kleisli
 import cats.effect.Async
 import cats.effect.kernel.Resource
 import cats.syntax.all.*
 import com.comcast.ip4s.*
 import fs2.io.net.Network
 import fs2.io.net.tls.{S2nConfig, TLSContext}
+import org.http4s.{HttpApp, Request, Response}
 import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.ember.server.EmberServerBuilder
@@ -24,13 +26,13 @@ object MyServer:
       helloWorldAlg = HelloWorld.impl[F]
       jokeAlg = Jokes.impl[F](client)
 
-      httpApp = (
+      httpApp: Kleisli[F, Request[F], Response[F]] = (
         MyRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
         MyRoutes.jokeRoutes[F](jokeAlg)
       ).orNotFound
 
       // With Middlewares in place
-      finalHttpApp = Logger.httpApp(true, true)(httpApp)
+      finalHttpApp: HttpApp[F] = Logger.httpApp(true, true)(httpApp)
 
       _ <- 
         EmberServerBuilder.default[F]

@@ -7,6 +7,7 @@ val MunitVersion = "0.7.29"
 val LogbackVersion = "1.5.6"
 val MunitCatsEffectVersion = "1.0.6"
 val EpollcatVersion = "0.1.6"
+val Log4catsVersion = "2.6.0"
 
 val isLinux = Option(System.getProperty("os.name"))
   .exists(_.toLowerCase().contains("linux"))
@@ -30,7 +31,8 @@ lazy val root = (project in file("."))
       "org.http4s" %%% "http4s-circe" % Http4sVersion,
       "org.http4s" %%% "http4s-dsl" % Http4sVersion,
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
-      "org.typelevel" %% "log4cats-slf4j" % "2.6.0",
+      "org.typelevel" %% "log4cats-slf4j" % Log4catsVersion,
+      "org.typelevel" %% "log4cats-core" % Log4catsVersion,
       "org.scalameta" %% "munit" % MunitVersion % Test,
       "org.typelevel" %% "munit-cats-effect-3" % MunitCatsEffectVersion % Test
     ),
