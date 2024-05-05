@@ -4,10 +4,9 @@ Global / dependencyCheckFormats := Seq("HTML", "JSON")
 
 val Http4sVersion = "1.0.0-M41"
 val MunitVersion = "0.7.29"
-val LogbackVersion = "1.5.6"
 val MunitCatsEffectVersion = "1.0.6"
 val EpollcatVersion = "0.1.6"
-val Log4catsVersion = "2.6.0"
+val Log4catsVersion = "2.7.0"
 
 val isLinux = Option(System.getProperty("os.name"))
   .exists(_.toLowerCase().contains("linux"))
@@ -30,7 +29,7 @@ lazy val root = (project in file("."))
       "org.http4s" %%% "http4s-ember-client" % Http4sVersion,
       "org.http4s" %%% "http4s-circe" % Http4sVersion,
       "org.http4s" %%% "http4s-dsl" % Http4sVersion,
-      "ch.qos.logback" % "logback-classic" % LogbackVersion,
+      // "ch.qos.logback" % "logback-classic" % "1.5.6",
       "org.typelevel" %% "log4cats-slf4j" % Log4catsVersion,
       "org.typelevel" %%% "log4cats-core" % Log4catsVersion,
       "org.scalameta" %% "munit" % MunitVersion % Test,
@@ -49,7 +48,9 @@ lazy val root = (project in file("."))
         case None       =>
         case Some(path) => linkOpts.append(s"-L$path")
       }
-      c.withLinkingOptions(c.linkingOptions ++ linkOpts.toSeq)
+      c.withOptimize(false)
+        .withMode(scalanative.build.Mode.debug)
+        .withLinkingOptions(c.linkingOptions ++ linkOpts)
     },
     envVars ++= {
       val ldLibPath =
