@@ -10,4 +10,4 @@ addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.12.0")
 
 addSbtPlugin("net.vonbuchholtz" % "sbt-dependency-check" % "5.1.0")
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.11")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "2.0.12")
