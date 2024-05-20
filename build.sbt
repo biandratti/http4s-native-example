@@ -1,28 +1,31 @@
 import scala.collection.mutable.ListBuffer
 
 Global / dependencyCheckFormats := Seq("HTML", "JSON")
-
-ThisBuild / scalaVersion := "3.2.2"
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "com.biandratti"
-
 enablePlugins(ScalaNativePlugin)
 
-name := "Scala Native Ember Example"
+val Http4sVersion = "0.23.27"
+val MunitVersion = "0.7.29"
+val LogbackVersion = "1.2.6"
+val MunitCatsEffectVersion = "1.0.6"
 
-val http4sVersion = "0.23.16"
-
-//TODO: setup setting
-libraryDependencies ++= Seq(
-  "com.armanbilge" %%% "epollcat" % "0.1.1", // Runtime
-  "org.http4s" %%% "http4s-ember-client" % http4sVersion,
-  "org.http4s" %%% "http4s-ember-server" % http4sVersion,
-  "org.http4s" %%% "http4s-dsl" % http4sVersion,
-  "org.http4s" %%% "http4s-circe" % http4sVersion,
-  "ch.qos.logback" % "logback-classic" % "1.5.6",
-  "org.scalameta" %% "munit" % "0.7.29" % Test,
-  "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test
-)
+lazy val root = (project in file("."))
+  .settings(
+    organization := "com.native",
+    name := "Scala Native Ember Example",
+    version := "0.0.1-SNAPSHOT",
+    scalaVersion := "3.3.3",
+    libraryDependencies ++= Seq(
+      "com.armanbilge" %%% "epollcat" % "0.1.1", // Runtime
+      "org.http4s" %%% "http4s-ember-server" % Http4sVersion,
+      "org.http4s" %%% "http4s-ember-client" % Http4sVersion,
+      "org.http4s" %%% "http4s-circe" % Http4sVersion,
+      "org.http4s" %%% "http4s-dsl" % Http4sVersion,
+      "org.scalameta" %% "munit" % MunitVersion % Test,
+      "org.typelevel" %% "munit-cats-effect-3" % MunitCatsEffectVersion % Test,
+      "ch.qos.logback" % "logback-classic" % LogbackVersion
+    ),
+    testFrameworks += new TestFramework("munit.Framework")
+  )
 
 val isLinux = Option(System.getProperty("os.name"))
   .exists(_.toLowerCase().contains("linux"))
