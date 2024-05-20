@@ -1,8 +1,7 @@
-package com.biandratti.server
+package com.native
 
 import cats.effect.Sync
 import cats.implicits.*
-import com.biandratti.service.HelloWorld
 import org.http4s.HttpRoutes
 import org.http4s.dsl.Http4sDsl
 

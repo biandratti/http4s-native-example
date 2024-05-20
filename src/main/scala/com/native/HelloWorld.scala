@@ -1,8 +1,7 @@
-package com.biandratti.service
+package com.native
 
 import cats.Applicative
 import cats.implicits.*
-import com.biandratti.service.HelloWorld
 import io.circe.{Encoder, Json}
 import org.http4s.EntityEncoder
 import org.http4s.circe.*

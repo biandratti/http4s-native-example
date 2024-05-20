@@ -1,7 +1,6 @@
-package com.biandratti
+package com.native
 
 import cats.effect.{IO, IOApp}
-import com.biandratti.server.Http4sServer
 import epollcat.EpollApp
 
 object Main extends EpollApp {

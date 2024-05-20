@@ -1,8 +1,7 @@
-package com.biandratti.service
+package com.native.service
 
 import cats.effect.IO
-import com.biandratti.server.Http4sRoutes
-import com.biandratti.service.HelloWorld
+import com.native.{HelloWorld, Http4sRoutes}
 import org.http4s.*
 import org.http4s.implicits.*
 import munit.CatsEffectSuite

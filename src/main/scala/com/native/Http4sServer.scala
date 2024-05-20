@@ -1,9 +1,8 @@
-package com.biandratti.server
+package com.native
 
 import cats.effect.*
 import cats.effect.std.Console
 import cats.syntax.all.*
-import com.biandratti.service.HelloWorld
 import com.comcast.ip4s.*
 import epollcat.EpollApp
 import fs2.io.net.Network
