@@ -1,3 +1,8 @@
+import scala.collection.mutable.ListBuffer
+
+Global / dependencyCheckFormats := Seq("HTML", "JSON")
+enablePlugins(ScalaNativePlugin)
+
 val Http4sVersion = "0.23.27"
 val MunitVersion = "0.7.29"
 val LogbackVersion = "1.2.6"
@@ -20,3 +25,44 @@ lazy val root = (project in file("."))
     ),
     testFrameworks += new TestFramework("munit.Framework")
   )
+
+val isLinux = Option(System.getProperty("os.name"))
+  .exists(_.toLowerCase().contains("linux"))
+val isMacOs =
+  Option(System.getProperty("os.name")).exists(_.toLowerCase().contains("mac"))
+val isArm = Option(System.getProperty("os.arch"))
+  .exists(_.toLowerCase().contains("aarch64"))
+val s2nLibPath = sys.env.get("S2N_LIBRARY_PATH")
+
+nativeConfig ~= { c =>
+  val linkOpts = ListBuffer.empty[String]
+  if (isLinux) // brew-installed s2n
+    linkOpts.append("-L/home/linuxbrew/.linuxbrew/lib")
+  else if (isMacOs) // brew-installed OpenSSL
+    if (isArm) linkOpts.append("-L/opt/homebrew/opt/openssl@3/lib")
+    else linkOpts.append("-L/usr/local/opt/openssl@3/lib")
+  s2nLibPath match {
+    case None       =>
+    case Some(path) => linkOpts.append(s"-L$path")
+  }
+  c.withLinkingOptions(c.linkingOptions ++ linkOpts.toSeq)
+}
+
+envVars ++= {
+  val ldLibPath =
+    if (isLinux)
+      Map("LD_LIBRARY_PATH" -> "/home/linuxbrew/.linuxbrew/lib")
+    else Map("LD_LIBRARY_PATH" -> "/usr/local/opt/openssl@1.1/lib")
+  Map("S2N_DONT_MLOCK" -> "1") ++ ldLibPath
+}
+
+addCommandAlias("checkFormat", ";scalafmtSbtCheck ;scalafmtCheckAll")
+addCommandAlias("scalafixLint", ";compile ;scalafix")
+addCommandAlias(
+  "testCoverage",
+  ";coverage ;test ;coverageAggregate; coverageReport"
+)
+addCommandAlias(
+  "verify",
+  ";checkFormat ;scalafixLint ;testCoverage; dependencyCheck"
+)
