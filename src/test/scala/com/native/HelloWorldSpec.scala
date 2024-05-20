@@ -1,7 +1,6 @@
 package com.native
 
 import cats.effect.IO
-import com.native.Http4sRoutes
 import org.http4s.*
 import org.http4s.implicits.*
 import munit.CatsEffectSuite

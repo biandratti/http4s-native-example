@@ -14,13 +14,13 @@ import org.http4s.client.Client
 
 object Http4sServer:
 
-  private def customTLS[F[_]: Async] =
+  private def customTLS[F[_]: Async: Network]: Resource[F, TLSContext[F]] =
     S2nConfig.builder
       .withCipherPreferences("default_tls13")
       .build[F]
       .map(Network[F].tlsContext.fromS2nConfig(_))
 
-  private def createClient[F[_]: Async](
+  private def createClient[F[_]: Async: Network](
       tlsContext: TLSContext[F]
   ): Resource[F, Client[F]] = {
     EmberClientBuilder
@@ -29,9 +29,11 @@ object Http4sServer:
       .withHttp2
       .build
   }
-  def run[F[_]: Async]: F[Nothing] = {
+
+  def run[F[_]: Async: Network]: Resource[F, Unit] = {
     for {
-      client <- customTLS.flatMap(createClient)
+      tlsContext <- customTLS
+      client <- createClient(tlsContext)
       helloWorldAlg = HelloWorld.impl[F]
       jokeAlg = Jokes.impl[F](client)
 
@@ -50,4 +52,4 @@ object Http4sServer:
           .withHttpApp(finalHttpApp)
           .build
     } yield ()
-  }.useForever
+  }
