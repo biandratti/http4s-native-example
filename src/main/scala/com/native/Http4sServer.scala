@@ -1,4 +1,4 @@
-package com.native.quickstart2
+package com.native
 
 import cats.effect._
 import cats.effect.Async
@@ -14,15 +14,15 @@ import org.http4s.client.Client
 
 object Http4sServer:
 
-  private def customTLS[F[_] : Async] =
+  private def customTLS[F[_]: Async] =
     S2nConfig.builder
       .withCipherPreferences("default_tls13")
       .build[F]
       .map(Network[F].tlsContext.fromS2nConfig(_))
 
-  private def createClient[F[_] : Async](
-                                          tlsContext: TLSContext[F]
-                                        ): Resource[F, Client[F]] = {
+  private def createClient[F[_]: Async](
+      tlsContext: TLSContext[F]
+  ): Resource[F, Client[F]] = {
     EmberClientBuilder
       .default[F]
       .withTLSContext(tlsContext)
@@ -37,13 +37,14 @@ object Http4sServer:
 
       httpApp = (
         Http4sRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
-        Http4sRoutes.jokeRoutes[F](jokeAlg)
+          Http4sRoutes.jokeRoutes[F](jokeAlg)
       ).orNotFound
 
       finalHttpApp = Logger.httpApp(true, true)(httpApp)
 
-      _ <- 
-        EmberServerBuilder.default[F]
+      _ <-
+        EmberServerBuilder
+          .default[F]
           .withHost(ipv4"0.0.0.0")
           .withPort(port"8080")
           .withHttpApp(finalHttpApp)

@@ -1,4 +1,4 @@
-package com.native.quickstart2
+package com.native
 
 import cats.effect.{IO, IOApp}
 
