@@ -1,6 +1,8 @@
 package com.native
 
-import cats.effect.{IO, IOApp}
+import cats.effect.{ExitCode, IO}
+import epollcat.EpollApp
 
-object Main extends IOApp.Simple:
-  val run = Http4sServer.run[IO].useForever
+object Main extends EpollApp:
+  def run(args: List[String]): IO[ExitCode] =
+    Http4sServer.run[IO].useForever.as(ExitCode.Success)

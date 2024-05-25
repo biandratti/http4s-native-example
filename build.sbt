@@ -4,8 +4,8 @@ Global / dependencyCheckFormats := Seq("HTML", "JSON")
 enablePlugins(ScalaNativePlugin)
 
 val Http4sVersion = "0.23.27"
-val MunitVersion = "0.7.29"
-val LogbackVersion = "1.2.6"
+val MunitVersion = "1.0.0"
+val LogbackVersion = "1.5.6"
 val MunitCatsEffectVersion = "1.0.6"
 
 lazy val root = (project in file("."))
@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
     version := "0.0.1-SNAPSHOT",
     scalaVersion := "3.3.3",
     libraryDependencies ++= Seq(
-      "com.armanbilge" %%% "epollcat" % "0.1.1", // Runtime
+      "com.armanbilge" %%% "epollcat" % "0.1.6", // Runtime
       "org.http4s" %%% "http4s-ember-server" % Http4sVersion,
       "org.http4s" %%% "http4s-ember-client" % Http4sVersion,
       "org.http4s" %%% "http4s-circe" % Http4sVersion,
