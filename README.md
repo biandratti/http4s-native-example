@@ -1,9 +1,9 @@
-# Building a scala native image using http4s.
-## Project based on example: https://github.com/ChristopherDavenport/scala-native-ember-example
+# Scala Native Ember Example
+This is a simple example project demonstrating how to build a Scala Native application using http4s.
+Example based on example: https://github.com/ChristopherDavenport/scala-native-ember-example
 
-### Pull & Run docker image
-
+### Build and run binaries
 ```
-docker pull ghcr.io/biandratti/http4s-native-example/http4s-example:latest
-docker run -d -p 8080:8080 http4s-example
+sbt nativeLink
+./target/scala-3.3.3/scala-native-ember-example-out
 ```
