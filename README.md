@@ -5,5 +5,11 @@ Example based on example: https://github.com/ChristopherDavenport/scala-native-e
 ### Build and run binaries
 ```
 sbt nativeLink
-./target/scala-3.3.3/scala-native-ember-example-out
+SCALA_VERSION=$(sbt "scalaVersion" | tail -1 | awk '{print $NF}')
+./target/scala-$SCALA_VERSION/scala-native-ember-example-out
+```
+
+### Run docker image
+```
+docker run -p 8080:8080 ghcr.io/biandratti/http4s-native-example/http4s-example:latest
 ```
