@@ -4,7 +4,7 @@ Global / dependencyCheckFormats := Seq("HTML", "JSON")
 enablePlugins(ScalaNativePlugin)
 
 val Http4sVersion = "0.23.27"
-val MunitVersion = "1.0.1"
+val MunitVersion = "1.0.2"
 val LogbackVersion = "1.5.8"
 val MunitCatsEffectVersion = "1.0.6"
 
