@@ -13,7 +13,7 @@ lazy val root = (project in file("."))
     organization := "com.native",
     name := "Scala Native Ember Example",
     version := "0.0.1-SNAPSHOT",
-    scalaVersion := "3.3.3",
+    scalaVersion := "3.3.4",
     libraryDependencies ++= Seq(
       "com.armanbilge" %%% "epollcat" % "0.1.6", // Runtime
       "org.http4s" %%% "http4s-ember-server" % Http4sVersion,
