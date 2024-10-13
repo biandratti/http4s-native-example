@@ -5,7 +5,7 @@ enablePlugins(ScalaNativePlugin)
 
 val Http4sVersion = "0.23.27"
 val MunitVersion = "1.0.2"
-val LogbackVersion = "1.5.8"
+val LogbackVersion = "1.5.10"
 val MunitCatsEffectVersion = "1.0.6"
 
 lazy val root = (project in file("."))
