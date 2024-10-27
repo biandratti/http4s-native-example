@@ -3,7 +3,7 @@ import scala.collection.mutable.ListBuffer
 Global / dependencyCheckFormats := Seq("HTML", "JSON")
 enablePlugins(ScalaNativePlugin)
 
-val Http4sVersion = "0.23.27"
+val Http4sVersion = "0.23.29"
 val MunitVersion = "1.0.2"
 val LogbackVersion = "1.5.11"
 val MunitCatsEffectVersion = "1.0.6"
