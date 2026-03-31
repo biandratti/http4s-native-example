@@ -15,7 +15,7 @@ lazy val root = (project in file("."))
     version := "0.0.1-SNAPSHOT",
     scalaVersion := "3.3.4",
     libraryDependencies ++= Seq(
-      "com.armanbilge" %%% "epollcat" % "0.1.6", // Runtime
+      "com.armanbilge" %%% "epollcat" % "0.1.7", // Runtime
       "org.http4s" %%% "http4s-ember-server" % Http4sVersion,
       "org.http4s" %%% "http4s-ember-client" % Http4sVersion,
       "org.http4s" %%% "http4s-circe" % Http4sVersion,
